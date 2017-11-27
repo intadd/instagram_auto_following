@@ -36,9 +36,9 @@ def instagram_login():
         driver.get("https://www.instagram.com/accounts/login/")
 
 	# !!!**** input user instagram id and password ************!!!!
-        user_id='' 
+        user_id='intadd@naver.com' 
 
-        user_pw=''
+        user_pw='print!@#'
 
         time.sleep(2)
 
@@ -166,8 +166,8 @@ def add_friend_prepare(driver):
                                 continue
 			      if(count>=70):
 					driver.close()
+					time.sleep(600)
 					driver=instagram_login()
-					time.sleep(500)
 					count=0
 					
 
