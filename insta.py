@@ -7,19 +7,26 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 
+########version####################
+#Python 2.7
+#Python selenium 2.30
+#Firefox <= 47 
+#Ubuntu 16.04
+###################################
 
-#python selenium 2.30, firefox 45 or 42 in ubuntu 16.04
 
-#global Variable
+#global Variable set
+
+#If you want to follow a specific friend, switch to continue_count=0, and start_id=starting_id
+#else you want to following from the first. continue_count=1
 
 count=0
-#If you want to follow a specific friend, switch to countinue_count=0, and start_id=starting_id
-continue_count=0 #1
-start_id='zb9'
+continue_count=0 #1 or 0
+start_id='aaaa'
 
 
-#login instagram
 
+#login instagram function
 def instagram_login():
 
   try:
@@ -28,7 +35,7 @@ def instagram_login():
 
         driver.get("https://www.instagram.com/accounts/login/")
 
-	# input user instagram id and password
+	# !!!**** input user instagram id and password ************!!!!
         user_id='' 
 
         user_pw=''
@@ -54,9 +61,11 @@ def instagram_login():
   except:
         main()
 
-def add_frined_main(driver,final_url):
+#following instagram friend function
 
-        global count
+def add_frined_main(driver,final_url):
+        
+	global count
 
         res=requests.get(final_url)
 
@@ -68,7 +77,6 @@ def add_frined_main(driver,final_url):
 
               return 
        
-
         try:
 
               driver.get(final_url)
@@ -76,9 +84,7 @@ def add_frined_main(driver,final_url):
               check=driver.page_source
 
               #check alraedy following or Reqouest
-
               if ((check.find('Requested')>1) or (check.count('Following') ==3) ):
-
           	      return
 
               time.sleep(2)
@@ -88,17 +94,12 @@ def add_frined_main(driver,final_url):
 	      count+=1
               time.sleep(2)
 	      Following_button=driver.find_elements_by_xpath("//*[contains(text(),'Follow')]")
-	      (Following_button[1]).click()
-	      count+=1
-	      (Following_button[2]).click()
-              count+=1
-	      (Following_button[3]).click()
-	      count+=1
-	      (Following_button[4]).click()
-	      count+=1
 
-	      (Following_button[5]).click()
-              count+=1
+
+	      for i in range(1,6):
+	      	(Following_button[i]).click()
+	      	count+=1
+
               print final_url+". is followed, count="+str(count) 
 
   
@@ -109,6 +110,7 @@ def add_frined_main(driver,final_url):
 
               return 
 
+#pattern following friend name
 
 def add_friend_prepare(driver):
 
@@ -165,7 +167,7 @@ def add_friend_prepare(driver):
 			      if(count>=70):
 					driver.close()
 					driver=instagram_login()
-					time.sleep(300)
+					time.sleep(500)
 					count=0
 					
 
@@ -191,8 +193,10 @@ def add_friend_prepare(driver):
 
         t1=1 
 
-def main ():
 
+#main function
+def main ():
+   time.sleep(5)
    add_friend_prepare(instagram_login())
 
 main()
