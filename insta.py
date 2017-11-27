@@ -36,9 +36,9 @@ def instagram_login():
         driver.get("https://www.instagram.com/accounts/login/")
 
 	# !!!**** input user instagram id and password ************!!!!
-        user_id='intadd@naver.com' 
+        user_id='' 
 
-        user_pw='print!@#'
+        user_pw=''
 
         time.sleep(2)
 
